@@ -23,7 +23,7 @@ function Home() {
         Choose the Characters or Comics
       </h1>
       <img
-        src="../img/4826101.jpg"
+        src="https://media.tenor.com/173j3PxEIp8AAAAC/marvel-intro.gif"
         alt=""
         style={{
           width: `100%`,
