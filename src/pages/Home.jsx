@@ -5,25 +5,25 @@ function Home() {
     <div
       style={{ display: `flex`, flexDirection: `column`, alignItems: `center` }}
     >
-      {/* <h1
+      <h1
         style={{
           color: `#ed171e`,
           display: `flex`,
-          marginTop: `10vh`,
+          marginTop: `3vh`,
 
           fontFamily: "Kdam Thmor Pro, sans-serif",
-          fontSize: `10vh`,
-          position: "absolute",
-          top: "30%",
-          left: "50%",
-          transform: "translate(-50%, -50%)", //
-          zIndex: 1,
+          fontSize: `3vh`,
+          //   position: "absolute",
+          //   top: "30%",
+          //   left: "50%",
+          //   transform: "translate(-50%, -50%)",
+          //   zIndex: 1,
         }}
       >
-        Welcome to Marvel Comic
-      </h1> */}
+        Choose the Characters or Comics
+      </h1>
       <img
-        src="https://media.tenor.com/173j3PxEIp8AAAAC/marvel-intro.gif"
+        src="../img/4826101.jpg"
         alt=""
         style={{
           width: `100%`,
