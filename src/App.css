@@ -1,5 +1,52 @@
+@font-face {
+  font-family: "badaboom";
+  src: local("badaboom"),
+    url(../src/font/badaboom_bb/BADABB__.TTF) format("truetype");
+}
+
+@font-face {
+  font-family: "a_ablasco";
+  src: local("a_ablasco"), url(./font/a_ablasco/aAblasco.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "indiana_jonas";
+  src: local("indiana_jonas"),
+    url(./font/indiana_jonas/Indiana-Jonas-48ip.otf) format("truetype");
+}
 body {
   background-image: url("./img/4826101.jpg");
   background-repeat: no-repeat;
   background-size: cover;
+}
+.load {
+  text-align: center;
+  margin-bottom: 4vh;
+}
+h2 {
+  font-family: "badaboom", serif;
+  text-align: center;
+}
+
+p {
+  font-family: "a_ablasco", serif;
+}
+
+button {
+  font-family: "indiana_jonas", serif;
+  box-shadow: 0em 0 4em cornflowerblue;
+}
+.boxcomic {
+  padding: 5vh 20vh 10vh 20vh;
+  border: solid cornflowerblue;
+  box-shadow: 3px 3px rgb(233, 40, 40), -1em 0 0.4em cornflowerblue;
+}
+.imagecomic {
+  padding: 0vh 1vh 1vh 0vh;
+  box-shadow: 0em 0 4em cornflowerblue;
+  border-radius: 2vh;
+}
+.back {
+  text-align: center;
+  margin-bottom: 50px;
 }

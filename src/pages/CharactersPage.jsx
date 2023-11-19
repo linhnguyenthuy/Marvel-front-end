@@ -44,9 +44,7 @@ const CharactersPage = () => {
     const fetchCharacters = async () => {
       try {
         const response = await axios.get(
-          `https://site--marvel-back-end--gt2tv4r7fx4n.code.run/characters?page=${currentPage}&limit=100&offset=${
-            (currentPage - 1) * 100
-          }`
+          `https://site--marvel-back-end--gt2tv4r7fx4n.code.run/characters`
         );
         console.log("--->", response.data);
         console.log("->", response.data.results);
@@ -132,11 +130,15 @@ const CharactersPage = () => {
                 src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
                 alt={character.name}
                 style={{
-                  width: `30vh`,
-                  height: `40vh`,
+                  width: `25vh`,
+                  height: `30vh`,
                   objectFit: `cover`,
                   objectPosition: `left`,
-                  borderRadius: `3vh`,
+                  borderTopLeftRadius: `2vh`,
+                  borderBottomLeftRadius: `2vh`,
+                  boxShadow: `0 0 10px #32a1ce, 0 0 10px #32a1ce`,
+                  marginLeft: `2vh`,
+                  marginBottom: `2vh`,
                 }}
               />
               <p
@@ -163,7 +165,20 @@ const CharactersPage = () => {
             </div>
           </div>
         ))}
-        <button onClick={loadMoreCharacters}>Load more characters</button>
+      </div>
+      <div className="load">
+        <button
+          onClick={loadMoreCharacters}
+          style={{
+            backgroundColor: `#ed171e`,
+            color: `white`,
+            width: `25vh`,
+            height: `5vh`,
+            borderRadius: `1vh`,
+          }}
+        >
+          Load more characters
+        </button>
       </div>
     </div>
   );

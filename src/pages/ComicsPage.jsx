@@ -9,6 +9,7 @@ const ComicsPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
 
   const addToCookies = (item) => {
     let comics = Cookies.get();
@@ -39,26 +40,31 @@ const ComicsPage = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchComic = async () => {
-      try {
-        const response = await axios.get(
-          "https://site--marvel-back-end--gt2tv4r7fx4n.code.run/comics"
-        );
-        console.log("->", response.data);
-        setComic(response.data.results);
-        setOriginalComic(response.data.results);
-      } catch (error) {
-        if (error.isAxiosError && !error.response) {
-          console.error("Network error: ", error);
-        } else {
-          console.error("Error fetching comic: ", error);
-        }
+  const fetchComic = async () => {
+    try {
+      const response = await axios.get(
+        `https://site--marvel-back-end--gt2tv4r7fx4n.code.run/comics?page=${currentPage}`
+      );
+      console.log("->", response.data);
+      setComic(response.data.results);
+      setOriginalComic(response.data.results);
+    } catch (error) {
+      if (error.isAxiosError && !error.response) {
+        console.error("Network error: ", error);
+      } else {
+        console.error("Error fetching comic: ", error);
       }
-    };
+    }
+  };
 
+  useEffect(() => {
     fetchComic();
-  }, []);
+  }, [currentPage]);
+
+  const loadMoreComics = () => {
+    setComic([]);
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
 
   if (!comic) {
     return <div>Loading...</div>;
@@ -106,72 +112,91 @@ const ComicsPage = () => {
           {errorMessage}
         </p>
       )}
-      <div
-        style={{
-          display: `flex`,
-          flexWrap: `wrap`,
-          gap: `3vh`,
-          alignItems: `end`,
-          marginTop: `10vh`,
-          overflow: `auto`,
-          height: "70vh",
-          margin: `10vh 30vh`,
-        }}
-      >
-        {comic.map((comic, index) => (
-          <div key={index}>
-            <div>
-              <p
-                style={{
-                  width: `30vh`,
-                  marginTop: `5vh`,
-                  marginBottom: `3vh`,
-                  color: `white`,
-                }}
-              >
-                {comic.title}
-              </p>
+      <div>
+        <div
+          style={{
+            display: `flex`,
+            flexWrap: `wrap`,
+            gap: `3vh`,
+            alignItems: `end`,
+            marginTop: `10vh`,
+            overflow: `auto`,
+            height: "70vh",
+            margin: `10vh 20vh`,
+          }}
+        >
+          {comic.map((comic, index) => (
+            <div key={index}>
+              <div className="box">
+                <h2
+                  style={{
+                    width: `30vh`,
+                    marginTop: `5vh`,
+                    marginBottom: `3vh`,
+                    color: `white`,
+                  }}
+                >
+                  {comic.title}
+                </h2>
 
-              <img
-                src={`${comic.thumbnail.path}/standard_xlarge.${comic.thumbnail.extension}`}
-                alt="Comic"
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src =
-                    "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
-                }}
-                style={{
-                  width: `30vh`,
-                  height: `40vh`,
-                  objectFit: `cover`,
-                  objectPosition: `center`,
-                  borderTopLeftRadius: `2vh`,
-                  borderBottomLeftRadius: `2vh`,
-                }}
-              />
-            </div>
+                <img
+                  src={`${comic.thumbnail.path}/standard_xlarge.${comic.thumbnail.extension}`}
+                  alt="Comic"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src =
+                      "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
+                  }}
+                  style={{
+                    width: `25vh`,
+                    height: `30vh`,
+                    objectFit: `cover`,
+                    objectPosition: `center`,
+                    borderTopLeftRadius: `2vh`,
+                    borderBottomLeftRadius: `2vh`,
+                    boxShadow: `0 0 10px #32a1ce, 0 0 10px #32a1ce`,
+                    marginLeft: `2vh`,
+                    marginBottom: `2vh`,
+                  }}
+                />
 
-            <p
-              style={{
-                width: `30vh`,
-                whiteSpace: `nowrap`,
-                overflow: `hidden`,
-                textOverflow: `ellipsis`,
-                color: `white`,
-              }}
-            >
-              {comic.description ? comic.description : "Simply amazing."}
-            </p>
-            <div style={{ display: `flex`, flexDirection: `column` }}>
-              <Link to={`/comic/${comic._id}`}>
-                <button>See comic</button>
-              </Link>
-              <button onClick={() => addToCookies(comic)}>
-                Add to Favorites
-              </button>
+                <p
+                  style={{
+                    width: `30vh`,
+                    whiteSpace: `nowrap`,
+                    overflow: `hidden`,
+                    textOverflow: `ellipsis`,
+                    color: `white`,
+                  }}
+                >
+                  {comic.description ? comic.description : "Simply amazing."}
+                </p>
+              </div>
+              <div style={{ display: `flex`, flexDirection: `column` }}>
+                <Link to={`/comic/${comic._id}`}>
+                  <button>See comic</button>
+                </Link>
+                <button onClick={() => addToCookies(comic)}>
+                  Add to Favorites
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+        <div className="load">
+          <button
+            onClick={loadMoreComics}
+            style={{
+              backgroundColor: `#ed171e`,
+              color: `white`,
+              width: `25vh`,
+              height: `5vh`,
+              borderRadius: `1vh`,
+            }}
+          >
+            Load more comics
+          </button>
+        </div>
       </div>
     </div>
   );

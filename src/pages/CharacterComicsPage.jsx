@@ -44,6 +44,7 @@ const CharacterComicsPage = () => {
         overflow: `auto`,
         height: "70vh",
         margin: `10vh 30vh`,
+        textAlign: `center`,
       }}
     >
       {comics.map((comic) => (
@@ -55,6 +56,7 @@ const CharacterComicsPage = () => {
                 marginTop: `5vh`,
                 marginBottom: `3vh`,
                 color: `white`,
+                textAlign: `center`,
               }}
             >
               {comic.title}
@@ -64,22 +66,24 @@ const CharacterComicsPage = () => {
             comic.thumbnail &&
             comic.thumbnail.path &&
             comic.thumbnail.extension && (
-              <img
-                src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
-                alt=""
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src =
-                    "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
-                }}
-                style={{
-                  width: `30vh`,
-                  height: `40vh`,
-                  objectFit: `cover`,
-                  objectPosition: `left`,
-                  borderRadius: `2vh`,
-                }}
-              />
+              <div className="image-container">
+                <img
+                  src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
+                  alt=""
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src =
+                      "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
+                  }}
+                  style={{
+                    width: `30vh`,
+                    height: `40vh`,
+                    objectFit: `cover`,
+                    objectPosition: `left`,
+                    borderRadius: `2vh`,
+                  }}
+                />
+              </div>
             )}
           {comic && (
             <p

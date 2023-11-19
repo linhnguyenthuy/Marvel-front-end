@@ -32,10 +32,9 @@ const FavoritesPage = () => {
         flexWrap: `wrap`,
         gap: `3vh`,
         alignItems: `end`,
-        marginTop: `10vh`,
         overflow: `auto`,
-        height: "70vh",
-        margin: `10vh 30vh`,
+
+        margin: `10vh 10vh`,
       }}
     >
       {favorites.characters.map((character, index) => (
@@ -43,7 +42,7 @@ const FavoritesPage = () => {
           <h2
             style={{
               width: `30vh`,
-              marginTop: `5vh`,
+              marginTop: `2vh`,
               marginBottom: `3vh`,
               color: `white`,
             }}
@@ -59,12 +58,14 @@ const FavoritesPage = () => {
                 "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
             }}
             style={{
-              width: `30vh`,
-              height: `40vh`,
+              width: `25vh`,
+              height: `30vh`,
               objectFit: `cover`,
               objectPosition: `center`,
-              borderTopLeftRadius: `2vh`,
-              borderBottomLeftRadius: `2vh`,
+              borderRadius: `2vh`,
+              boxShadow: `0 0 10px #32a1ce, 0 0 10px #32a1ce`,
+              marginLeft: `2vh`,
+              marginBottom: `2vh`,
             }}
           />
           <p
@@ -103,7 +104,7 @@ const FavoritesPage = () => {
           <h2
             style={{
               width: `30vh`,
-              marginTop: `5vh`,
+              marginTop: `2vh`,
               marginBottom: `3vh`,
               color: `white`,
             }}
@@ -119,12 +120,14 @@ const FavoritesPage = () => {
                 "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
             }}
             style={{
-              width: `30vh`,
-              height: `40vh`,
+              width: `25vh`,
+              height: `30vh`,
               objectFit: `cover`,
               objectPosition: `center`,
-              borderTopLeftRadius: `2vh`,
-              borderBottomLeftRadius: `2vh`,
+              borderRadius: `2vh`,
+              boxShadow: `0 0 10px #32a1ce, 0 0 10px #32a1ce`,
+              marginLeft: `2vh`,
+              marginBottom: `2vh`,
             }}
           />
           <p
