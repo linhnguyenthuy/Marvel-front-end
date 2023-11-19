@@ -10,30 +10,23 @@ function Home() {
           color: `#ed171e`,
           display: `flex`,
           marginTop: `3vh`,
-
-          fontFamily: "Kdam Thmor Pro, sans-serif",
-          fontSize: `3vh`,
-          //   position: "absolute",
-          //   top: "30%",
-          //   left: "50%",
-          //   transform: "translate(-50%, -50%)",
-          //   zIndex: 1,
         }}
       >
-        Choose the Characters or Comics
+        Please choose the Characters or Comics
       </h1>
       <img
         src="https://media.tenor.com/173j3PxEIp8AAAAC/marvel-intro.gif"
         alt=""
         style={{
-          width: `100%`,
+          width: `80%`,
           height: `80vh`,
           objectFit: `cover`,
           objectPosition: `center`,
           marginTop: `5vh`,
-          opacity: `70%`,
-          position: "relative",
-          zIndex: 0,
+          opacity: `80%`,
+          borderRadius: `2vh`,
+          marginBottom: `5vh`,
+          boxShadow: `0em 0 4em cornflowerblue`,
         }}
       />
     </div>

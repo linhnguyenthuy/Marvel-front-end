@@ -120,20 +120,26 @@ const Signup = ({ handleToken }) => {
               }}
             />
             <label style={{ color: `white` }}>
-              S'inscrire à notre newsletter
+              Please suscribe to our newsletter !
             </label>
           </div>
-          <p style={{ width: `35%`, color: `#b4b4b4`, fontSize: `70%` }}>
-            En m'inscrivant je confirme avoir lu et accepté les Termes &
-            Conditions et Politique de Confidentialité de Vinted. Je confirme
-            avoir au moins 18 ans.
-          </p>
+          <p1 style={{ width: `35%`, color: `#b4b4b4`, fontSize: `70%` }}>
+            By signing up, I confirm that I have read and accepted Marvel's
+            Terms & Conditions and Privacy Policy. I confirm that I am at least
+            18 years old.
+          </p1>
           <input
             type="submit"
             value={"Sign Up"}
             style={{
-              marginTop: `20px`,
+              marginTop: `10px`,
               marginBottom: `10px`,
+              color: `white`,
+              backgroundColor: `#ed171e`,
+              width: `25vh`,
+              height: `6vh`,
+              justifyContent: `center`,
+              borderRadius: `1vh`,
             }}
           />
         </form>
@@ -156,6 +162,7 @@ const Signup = ({ handleToken }) => {
             marginTop: `10px`,
             display: `flex`,
             justifyContent: `center`,
+            color: `#ed171e`,
           }}
         >
           Already have an account? Sign In.

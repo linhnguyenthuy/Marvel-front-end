@@ -23,6 +23,8 @@ const CharactersPage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setError(false);
+    searchTerm("");
     if (searchTerm) {
       const filteredCharacters = originalCharacters.filter((character) =>
         character.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -46,14 +48,16 @@ const CharactersPage = () => {
         const response = await axios.get(
           `https://site--marvel-back-end--gt2tv4r7fx4n.code.run/characters`
         );
-        console.log("--->", response.data);
-        console.log("->", response.data.results);
-        setCharacters((prevCharacters) => [
-          ...prevCharacters,
-          ...response.data.results,
-        ]);
+        // console.log("--->", response.data);
+        // console.log("->", response.data.results);
+        setCharacters(response.data.results);
+        setOriginalCharacters(response.data.results);
       } catch (error) {
-        console.error(error);
+        if (error.isAxiosError && !error.response) {
+          console.error("Network error: ", error);
+        } else {
+          console.error("Error fetching comic: ", error);
+        }
       }
     };
 
@@ -64,7 +68,9 @@ const CharactersPage = () => {
     setCharacters([]);
     setCurrentPage((prevPage) => prevPage + 1);
   };
-
+  if (!characters) {
+    return <div>Loading...</div>;
+  }
   return (
     <div>
       <form
@@ -104,7 +110,7 @@ const CharactersPage = () => {
       )}
       <div
         style={{
-          margin: "10vh 30vh",
+          margin: `10vh 20vh`,
           display: `flex`,
           flexWrap: `wrap`,
           gap: `3vh`,
@@ -134,9 +140,8 @@ const CharactersPage = () => {
                   height: `30vh`,
                   objectFit: `cover`,
                   objectPosition: `left`,
-                  borderTopLeftRadius: `2vh`,
-                  borderBottomLeftRadius: `2vh`,
-                  boxShadow: `0 0 10px #32a1ce, 0 0 10px #32a1ce`,
+                  borderRadius: `2vh`,
+                  boxShadow: `0 0 10px #ed171e, 0 0 10px #ed171e`,
                   marginLeft: `2vh`,
                   marginBottom: `2vh`,
                 }}

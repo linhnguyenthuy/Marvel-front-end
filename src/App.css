@@ -14,6 +14,11 @@
   src: local("indiana_jonas"),
     url(./font/indiana_jonas/Indiana-Jonas-48ip.otf) format("truetype");
 }
+@font-face {
+  font-family: "Stickysans";
+  src: local("Stickysans"), url(./font/Stickysans.otf) format("truetype");
+}
+
 body {
   background-image: url("./img/4826101.jpg");
   background-repeat: no-repeat;
@@ -23,18 +28,24 @@ body {
   text-align: center;
   margin-bottom: 4vh;
 }
+h1 {
+  font-family: "Stickysans", serif;
+  font-size: 30px;
+}
 h2 {
   font-family: "badaboom", serif;
   text-align: center;
+  margin-left: 2vh;
 }
 
 p {
   font-family: "a_ablasco", serif;
+  margin-left: 2vh;
 }
 
 button {
   font-family: "indiana_jonas", serif;
-  box-shadow: 0em 0 4em cornflowerblue;
+  margin-left: 2vh;
 }
 .boxcomic {
   padding: 5vh 20vh 10vh 20vh;

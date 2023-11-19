@@ -23,6 +23,7 @@ const ComicsPage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setError(false);
     if (searchTerm) {
       const filteredComics = originalComic.filter((comic) =>
         comic.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -45,7 +46,7 @@ const ComicsPage = () => {
       const response = await axios.get(
         `https://site--marvel-back-end--gt2tv4r7fx4n.code.run/comics?page=${currentPage}`
       );
-      console.log("->", response.data);
+      // console.log("->", response.data);
       setComic(response.data.results);
       setOriginalComic(response.data.results);
     } catch (error) {
@@ -69,11 +70,6 @@ const ComicsPage = () => {
   if (!comic) {
     return <div>Loading...</div>;
   }
-
-  const imageUrl =
-    comic && comic.thumbnail
-      ? `${comic.thumbnail.path}/standard_xlarge.${comic.thumbnail.extension}`
-      : "";
 
   return (
     <div>
@@ -131,8 +127,8 @@ const ComicsPage = () => {
                 <h2
                   style={{
                     width: `30vh`,
-                    marginTop: `5vh`,
-                    marginBottom: `3vh`,
+                    marginTop: `3vh`,
+                    marginBottom: `2vh`,
                     color: `white`,
                   }}
                 >
@@ -151,10 +147,9 @@ const ComicsPage = () => {
                     width: `25vh`,
                     height: `30vh`,
                     objectFit: `cover`,
-                    objectPosition: `center`,
-                    borderTopLeftRadius: `2vh`,
-                    borderBottomLeftRadius: `2vh`,
-                    boxShadow: `0 0 10px #32a1ce, 0 0 10px #32a1ce`,
+                    objectPosition: `left`,
+                    borderRadius: `2vh`,
+                    boxShadow: `0 0 10px #ed171e, 0 0 10px #ed171e`,
                     marginLeft: `2vh`,
                     marginBottom: `2vh`,
                   }}

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 
-const FavoritesPage = () => {
+const FavoritesPage = (token) => {
   const [favorites, setFavorites] = useState({ characters: [], comics: [] });
 
   useEffect(() => {
@@ -21,8 +21,29 @@ const FavoritesPage = () => {
   }, []);
   // console.log("--->", `comics_${comic._id}`);
 
+  if (!token) {
+    return (
+      <div>
+        <Link
+          to="/login"
+          style={{
+            marginTop: `10px`,
+            display: `flex`,
+            justifyContent: `center`,
+            color: `#ed171e`,
+          }}
+        >
+          You need to Sign In
+        </Link>
+      </div>
+    );
+  }
   if (favorites.characters.length === 0 && favorites.comics.length === 0) {
-    return <div style={{ color: `white` }}>No favorites yet</div>;
+    return (
+      <div style={{ color: `white`, textAlign: `center`, marginTop: `20px` }}>
+        No favorites yet
+      </div>
+    );
   }
 
   return (
@@ -63,7 +84,7 @@ const FavoritesPage = () => {
               objectFit: `cover`,
               objectPosition: `center`,
               borderRadius: `2vh`,
-              boxShadow: `0 0 10px #32a1ce, 0 0 10px #32a1ce`,
+              boxShadow: `0 0 10px #ed171e, 0 0 10px #ed171e`,
               marginLeft: `2vh`,
               marginBottom: `2vh`,
             }}
@@ -125,7 +146,7 @@ const FavoritesPage = () => {
               objectFit: `cover`,
               objectPosition: `center`,
               borderRadius: `2vh`,
-              boxShadow: `0 0 10px #32a1ce, 0 0 10px #32a1ce`,
+              boxShadow: `0 0 10px #ed171e, 0 0 10px #ed171e`,
               marginLeft: `2vh`,
               marginBottom: `2vh`,
             }}

@@ -57,7 +57,7 @@ const Login = ({ handleToken }) => {
           fontWeight: `bold`,
         }}
       >
-        Se Connecter
+        Sign In
       </h1>
       <div>
         <form
@@ -95,7 +95,7 @@ const Login = ({ handleToken }) => {
           />
           <input
             type="submit"
-            value="Se Connecter"
+            value="Sign In"
             style={{
               marginTop: `10px`,
               marginBottom: `10px`,
