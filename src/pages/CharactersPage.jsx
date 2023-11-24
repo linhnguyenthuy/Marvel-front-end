@@ -8,7 +8,7 @@ const CharactersPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [originalCharacters, setOriginalCharacters] = useState(null);
+  // const [originalCharacters, setOriginalCharacters] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
 
   const addToCookies = (item) => {
@@ -21,42 +21,47 @@ const CharactersPage = () => {
     Cookies.set(`characters_${uniqueId}`, characters, { expires: 3 });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setError(false);
-    searchTerm("");
     if (searchTerm) {
-      const filteredCharacters = originalCharacters.filter((character) =>
-        character.name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      if (filteredCharacters.length > 0) {
-        setCharacters(filteredCharacters);
-        setError(false);
-      } else {
+      try {
+        const response = await axios.get(
+          `https://site--marvel-back-end--gt2tv4r7fx4n.code.run/characters?search=${searchTerm}`
+        );
+        if (response.data.results.length > 0) {
+          setCharacters(response.data.results);
+          setError(false);
+        } else {
+          setError(true);
+          setErrorMessage("No character found with this name.");
+        }
+      } catch (error) {
+        console.error("Error fetching characters: ", error);
         setError(true);
-        setErrorMessage("No character found with this name.");
+        setErrorMessage("An error occurred while searching for characters.");
       }
     } else {
       setError(true);
       setErrorMessage("Please enter a search term.");
     }
+    setSearchTerm("");
   };
-
   useEffect(() => {
     const fetchCharacters = async () => {
       try {
         const response = await axios.get(
-          `https://site--marvel-back-end--gt2tv4r7fx4n.code.run/characters`
+          `https://site--marvel-back-end--gt2tv4r7fx4n.code.run/characters?page=${currentPage}`
         );
         // console.log("--->", response.data);
         // console.log("->", response.data.results);
         setCharacters(response.data.results);
-        setOriginalCharacters(response.data.results);
+        // setOriginalCharacters(response.data.results);
       } catch (error) {
         if (error.isAxiosError && !error.response) {
           console.error("Network error: ", error);
         } else {
-          console.error("Error fetching comic: ", error);
+          console.error("Error fetching characters: ", error);
         }
       }
     };
@@ -65,12 +70,12 @@ const CharactersPage = () => {
   }, [currentPage]);
 
   const loadMoreCharacters = () => {
-    setCharacters([]);
     setCurrentPage((prevPage) => prevPage + 1);
   };
   if (!characters) {
     return <div>Loading...</div>;
   }
+
   return (
     <div>
       <form

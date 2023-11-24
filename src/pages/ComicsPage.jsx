@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 
 const ComicsPage = () => {
   const [comic, setComic] = useState(null);
-  const [originalComic, setOriginalComic] = useState(null);
+  // const [originalComic, setOriginalComic] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -21,49 +21,71 @@ const ComicsPage = () => {
     Cookies.set(`comics_${uniqueId}`, comics, { expires: 3 });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setError(false);
     if (searchTerm) {
-      const filteredComics = originalComic.filter((comic) =>
-        comic.title.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      if (filteredComics.length > 0) {
-        setComic(filteredComics);
-        setError(false);
-      } else {
+      try {
+        const response = await axios.get(
+          `https://site--marvel-back-end--gt2tv4r7fx4n.code.run/comics?search=${searchTerm}`
+        );
+        if (response.data.results.length > 0) {
+          setComic(response.data.results);
+          setError(false);
+        } else {
+          setError(true);
+          setErrorMessage("No comics found with this name.");
+        }
+      } catch (error) {
+        console.error("Error fetching comics: ", error);
         setError(true);
-        setErrorMessage("No comic found with this name.");
+        setErrorMessage("An error occurred while searching for comics.");
       }
     } else {
       setError(true);
       setErrorMessage("Please enter a search term.");
     }
+    setSearchTerm("");
   };
-
-  const fetchComic = async () => {
-    try {
-      const response = await axios.get(
-        `https://site--marvel-back-end--gt2tv4r7fx4n.code.run/comics?page=${currentPage}`
-      );
-      // console.log("->", response.data);
-      setComic(response.data.results);
-      setOriginalComic(response.data.results);
-    } catch (error) {
-      if (error.isAxiosError && !error.response) {
-        console.error("Network error: ", error);
-      } else {
-        console.error("Error fetching comic: ", error);
-      }
-    }
-  };
+  //   if (searchTerm) {
+  //     const filteredComics = originalComic.filter((comic) =>
+  //       comic.title.toLowerCase().includes(searchTerm.toLowerCase())
+  //     );
+  //     if (filteredComics.length > 0) {
+  //       setComic(filteredComics);
+  //       setError(false);
+  //     } else {
+  //       setError(true);
+  //       setErrorMessage("No comic found with this name.");
+  //     }
+  //   } else {
+  //     setError(true);
+  //     setErrorMessage("Please enter a search term.");
+  //   }
+  // };
 
   useEffect(() => {
+    const fetchComic = async () => {
+      try {
+        const response = await axios.get(
+          `https://site--marvel-back-end--gt2tv4r7fx4n.code.run/comics?page=${currentPage}`
+        );
+        // console.log("->", response.data);
+        setComic(response.data.results);
+        // setOriginalComic(response.data.results);
+      } catch (error) {
+        if (error.isAxiosError && !error.response) {
+          console.error("Network error: ", error);
+        } else {
+          console.error("Error fetching comic: ", error);
+        }
+      }
+    };
+
     fetchComic();
   }, [currentPage]);
 
   const loadMoreComics = () => {
-    setComic([]);
     setCurrentPage((prevPage) => prevPage + 1);
   };
 
