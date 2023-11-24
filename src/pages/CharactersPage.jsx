@@ -17,13 +17,13 @@ const CharactersPage = () => {
       characters = [];
     }
     characters.push(JSON.stringify(item));
-    const uniqueId = new Date().getTime();
-    Cookies.set(`characters_${uniqueId}`, characters, { expires: 3 });
+    Cookies.set(`characters_${characters._id}`, characters, { expires: 3 });
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError(false);
+    setErrorMessage("");
     if (searchTerm) {
       try {
         const response = await axios.get(

@@ -17,13 +17,14 @@ const ComicsPage = () => {
       comics = [];
     }
     comics.push(JSON.stringify(item));
-    const uniqueId = new Date().getTime();
-    Cookies.set(`comics_${uniqueId}`, comics, { expires: 3 });
+
+    Cookies.set(`comics_${comic._id}`, comics, { expires: 3 });
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError(false);
+    setErrorMessage("");
     if (searchTerm) {
       try {
         const response = await axios.get(

@@ -106,7 +106,7 @@ const FavoritesPage = (token) => {
             </Link>
             <button
               onClick={() => {
-                Cookies.remove(`comics_${comic._id}`);
+                Cookies.remove(`characters_${character._id}`);
                 setFavorites((prevState) => ({
                   ...prevState,
                   comics: prevState.comics.filter(

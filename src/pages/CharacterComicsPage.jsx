@@ -47,67 +47,73 @@ const CharacterComicsPage = () => {
         textAlign: `center`,
       }}
     >
-      {comics.map((comic) => (
-        <div key={comic._id}>
-          {comic && comic.title && (
-            <h2
-              style={{
-                width: `30vh`,
-                marginTop: `5vh`,
-                marginBottom: `3vh`,
-                color: `white`,
-                textAlign: `center`,
-              }}
-            >
-              {comic.title}
-            </h2>
-          )}
-          {comic &&
-            comic.thumbnail &&
-            comic.thumbnail.path &&
-            comic.thumbnail.extension && (
-              <div className="image-container">
-                <img
-                  src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
-                  alt=""
-                  onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src =
-                      "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
-                  }}
-                  style={{
-                    width: `30vh`,
-                    height: `40vh`,
-                    objectFit: `cover`,
-                    objectPosition: `left`,
-                    borderRadius: `2vh`,
-                  }}
-                />
-              </div>
+      {comics.length === 0 ? (
+        <p style={{ color: `white`, textAlign: `center`, fontSize: `30px` }}>
+          No related comic
+        </p>
+      ) : (
+        comics.map((comic) => (
+          <div key={comic._id}>
+            {comic && comic.title && (
+              <h2
+                style={{
+                  width: `30vh`,
+                  marginTop: `5vh`,
+                  marginBottom: `3vh`,
+                  color: `white`,
+                  textAlign: `center`,
+                }}
+              >
+                {comic.title}
+              </h2>
             )}
-          {comic && (
-            <p
-              style={{
-                width: `30vh`,
-                whiteSpace: `nowrap`,
-                overflow: `hidden`,
-                textOverflow: `ellipsis`,
-                color: `white`,
-              }}
-            >
-              {comic.description ? comic.description : "Simply amazing."}
-            </p>
-          )}
-          <div style={{ display: `flex`, flexDirection: `column` }}>
-            <Link to={`/comic/${comic._id}`}>
-              <button>See comic</button>
-            </Link>
-            <button onClick={() => addToCookies(comic)}>
-              Add to Favorites
-            </button>
+            {comic &&
+              comic.thumbnail &&
+              comic.thumbnail.path &&
+              comic.thumbnail.extension && (
+                <div className="image-container">
+                  <img
+                    src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
+                    alt=""
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src =
+                        "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
+                    }}
+                    style={{
+                      width: `30vh`,
+                      height: `40vh`,
+                      objectFit: `cover`,
+                      objectPosition: `left`,
+                      borderRadius: `2vh`,
+                    }}
+                  />
+                </div>
+              )}
+            {comic && (
+              <p
+                style={{
+                  width: `30vh`,
+                  whiteSpace: `nowrap`,
+                  overflow: `hidden`,
+                  textOverflow: `ellipsis`,
+                  color: `white`,
+                }}
+              >
+                {comic.description ? comic.description : "Simply amazing."}
+              </p>
+            )}
+            <div style={{ display: `flex`, flexDirection: `column` }}>
+              <Link to={`/comic/${comic._id}`}>
+                <button>See comic</button>
+              </Link>
+              <button onClick={() => addToCookies(comic)}>
+                Add to Favorites
+              </button>
+            </div>
           </div>
-        </div>
-      ))}
+        ))
+      )}
     </div>
   );
 };
